@@ -2,6 +2,5 @@ Open-source ptychographic phase reconstructions of Dectis ARINA 4D-STEM data col
 
 Initial code provided for the M&M2024 presentation on Wednesday July 31, 2024.
 
-The open unbinned datasets can be downloaded from:
-(HDF5 files containing calibrated py4DSTEM DataCube objects.)
+The open unbinned datasets (HDF5 files containing calibrated py4DSTEM DataCube objects) can be downloaded from:  
 https://phaidra.univie.ac.at/pfsa/o_2081765/
