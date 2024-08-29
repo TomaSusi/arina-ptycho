@@ -1,3 +1,4 @@
+# Python module file for running atomic phase optimization in parallel.
 import numpy as np
 import os,sys
 sys.path.append('/Users/tomasusi/git/stem_optimization')
