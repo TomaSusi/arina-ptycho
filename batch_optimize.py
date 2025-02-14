@@ -1,13 +1,14 @@
 # Python module file for running atomic phase optimization in parallel.
 import numpy as np
 import os,sys
-sys.path.append('/Users/tomasusi/git/stem_optimization')
-from Model import Model
-from Simulation import Simulation
+sys.path.append('/home/jupyter-toma/git/stem_optimization')
+import Model
+#from Model import Model
+#from Simulation import Simulation
 
 def optimize_model_parallel(data, progress_bar=False, plot=False):
 
-    image, atoms = data
+    image, atoms, me, method, rounds = data
     
     conv_angle = 0.034 #rad
     energy = 60000 #eV
@@ -17,8 +18,8 @@ def optimize_model_parallel(data, progress_bar=False, plot=False):
 
     px = np.min(image.shape)
     
-    m = Model(atoms, image, kernelsize=1, plot=plot)
-    m.set_up_simulation(conv_angle, energy, fov, blur=blur, method='SSB')
+    m = Model.Model(atoms, image, kernelsize=1, plot=plot)
+    m.set_up_simulation(conv_angle, energy, fov, blur=blur, method=method) #, aberrations={'EHTFocus':-me['metadata']['hardware_source']['ImageRonchigram']['C10']/10})
 
     rounds1 = 40
     m.optimize_model(['fov','blur','translation','scale'],
@@ -28,7 +29,7 @@ def optimize_model_parallel(data, progress_bar=False, plot=False):
     m.optimize_model(['fov','blur','translation','scale','positions'],
                      iterations = rounds2, progress_bar=True)
 
-    rounds3 = 60
+    rounds3 = rounds
     m.optimize_model(['fov','blur','translation','scale','positions','intensities'], 
                      iterations = rounds3, progress_bar=True)
     #m.normalize_intensities()
